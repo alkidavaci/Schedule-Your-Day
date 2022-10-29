@@ -36,3 +36,30 @@ $("#19 .description").val(localStorage.getItem("19"));
 $("#20 .description").val(localStorage.getItem("20"));
 $("#21 .description").val(localStorage.getItem("21"));
 $("#22 .description").val(localStorage.getItem("22"));
+
+// Get current hour using moment.js
+var present = moment().hour();
+
+// Function to give color coded to indicate whether it is in the past, present, or future
+function giveColor(el) {
+    // Get time from id of time block
+    var timeBlock = $(el).attr("id");
+    
+    // Past
+    if (present > timeBlock) {
+        $(el).addClass("past").removeClass("future present");
+    } 
+    //Future
+    else if (present < timeBlock) {
+        $(el).addClass("future").removeClass("past present");
+    } 
+    // Present
+    else {
+        $(el).addClass("present").removeClass("past future");
+    }
+}
+
+// Call giveColor function for each time block
+$(".time-block").each(function () {
+    giveColor($(this));
+});
